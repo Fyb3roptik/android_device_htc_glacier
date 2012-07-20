@@ -23,8 +23,9 @@ PRODUCT_COPY_FILES += \
 ## (1) First, the most specific values, i.e. the aspects that are specific to GSM
 
 PRODUCT_COPY_FILES += \
-    device/htc/glacier/init.glacier.rc:root/init.glacier.rc \
-    device/htc/glacier/ueventd.glacier.rc:root/ueventd.glacier.rc
+    device/htc/glacier/ramdisk/init.glacier.rc:root/init.glacier.rc \
+    device/htc/glacier/ramdisk/ueventd.glacier.rc:root/ueventd.glacier.rc \
+    device/htc/glacier/ramdisk/glacier.fstab:root/glacier.fstab
 
 ## (2) Also get non-open-source GSM-specific aspects if available
 $(call inherit-product-if-exists, vendor/htc/glacier/device-vendor.mk)
@@ -38,7 +39,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     dalvik.vm.lockprof.threshold=500 \
     dalvik.vm.dexopt-flags=m=y
 
-# DEVICE_PACKAGE_OVERLAYS += device/htc/glacier/overlay
+DEVICE_PACKAGE_OVERLAYS += device/htc/glacier/overlay
 
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.telephony.gsm.xml:system/etc/permissions/android.hardware.telephony.gsm.xml \
@@ -56,14 +57,13 @@ PRODUCT_PACKAGES += \
 # Keylayouts
 PRODUCT_COPY_FILES += \
     device/htc/glacier/keylayout/h2w_headset.kl:system/usr/keylayout/h2w_headset.kl \
-    device/htc/glacier/keylayout/glacier-keypad.kl:system/usr/keylayout/glacier-keypad.kl \
-#   device/htc/glacier/keylayout/curcial-oj.kl:system/usr/keylayout/curcial-oj.kl
+    device/htc/glacier/keylayout/glacier-keypad.kl:system/usr/keylayout/glacier-keypad.kl
 
 # IDC Files
 PRODUCT_COPY_FILES += \
     device/htc/glacier/idc/atmel-touchscreen.idc:system/usr/idc/atmel-touchscreen.idc \
     device/htc/glacier/idc/glacier-keypad.idc:system/usr/idc/glacier-keypad.idc \
-    device/htc/glacier/idc/curcial-oj.idc:system/usr/idc/curcial-oj.idc \
+    device/htc/glacier/idc/curcial-oj.idc:system/usr/idc/curcial-oj.idc
 
 # Keychars
 PRODUCT_COPY_FILES += \
@@ -74,10 +74,7 @@ PRODUCT_COPY_FILES += \
     device/htc/glacier/firmware/bcm4329.hcd:system/vendor/firmware/bcm4329.hcd \
     device/htc/glacier/firmware/default.acdb:system/etc/firmware/default.acdb \
     device/htc/glacier/firmware/default_org.acdb:system/etc/firmware/default_org.acdb \
-    device/htc/glacier/firmware/default_org_WA.acdb:system/etc/firmware/default_org_WA.acdb \
-    device/htc/glacier/firmware/A1026_CFG.csv:system/etc/A1026_CFG.csv \
-    device/htc/glacier/firmware/AdieHWCodec.csv:system/etc/AdieHWCodec.csv \
-    device/htc/glacier/firmware/AdieHWCodec_WA.csv:system/etc/AdieHWCodec_WA.csv
+    device/htc/glacier/firmware/default_org_WA.acdb:system/etc/firmware/default_org_WA.acdb
 
 # Vold
 PRODUCT_COPY_FILES += \
@@ -86,11 +83,6 @@ PRODUCT_COPY_FILES += \
 # media config xml file
 PRODUCT_COPY_FILES += \
     device/htc/msm7x30-common/media_profiles.xml:system/etc/media_profiles.xml
-
-# High-density art, but English locale
-PRODUCT_LOCALES += en
-PRODUCT_AAPT_CONFIG := normal hdpi
-PRODUCT_AAPT_PREF_CONFIG := hdpi
 
 # stuff common to all HTC phones
 $(call inherit-product, device/htc/common/common.mk)
@@ -104,4 +96,5 @@ $(call inherit-product, device/htc/glacier/media_a1026.mk)
 # htc audio settings
 $(call inherit-product, device/htc/glacier/media_htcaudio.mk)
 
+# dalvik heap settings
 $(call inherit-product, frameworks/native/build/phone-hdpi-512-dalvik-heap.mk)
