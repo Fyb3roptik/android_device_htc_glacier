@@ -9,12 +9,12 @@ LOCAL_MODULE := camera.$(TARGET_BOARD_PLATFORM)
 
 LOCAL_MODULE_TAGS := optional
 
-LOCAL_SRC_FILES	 := camerawrapper.cpp
+LOCAL_SRC_FILES := CameraWrapper.cpp
+
 LOCAL_C_INCLUDES := frameworks/base/services \
                     frameworks/base/include \
                     hardware/libhardware/include \
                     hardware/qcom/display/libgralloc
-
 LOCAL_SHARED_LIBRARIES := liblog libutils libcutils libbinder
 LOCAL_SHARED_LIBRARIES += libui libhardware libcamera_client
 LOCAL_SHARED_LIBRARIES += libcamera
@@ -26,6 +26,7 @@ endif
 ifeq ($(BOARD_USE_REVERSE_FFC), true)
     LOCAL_CFLAGS += -DREVERSE_FFC
 endif
+
 include $(BUILD_SHARED_LIBRARY)
 
 endif

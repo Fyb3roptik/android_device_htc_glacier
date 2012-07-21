@@ -3,15 +3,14 @@ import init.htc7x30.usb.rc
 on early-init
 
     export EXTERNAL_STORAGE /mnt/sdcard
-    mkdir /mnt/sdcard 0000 system system
-    symlink /mnt/sdcard /sdcard
+    mkdir /mnt/sdcard0 0000 system system
+    symlink /mnt/sdcard0 /sdcard
 
 on early-fs
 
     mkdir /system
     mkdir /data 0771 system system
     mkdir /cache 0770 system cache
-    mkdir /devlog 0700 root root
 
 	# mount all mmc partitions
     mount_all /glacier.fstab
@@ -141,24 +140,6 @@ service hciattach /system/bin/brcm_patchram_plus --enable_hci --enable_lpm \
 service rmt_storage /system/bin/rmt_storage /dev/block/mmcblk0p13 /dev/block/mmcblk0p14
     class main
     user root
-
-service htc_ebdlogd /system/bin/htc_ebdlogd -s -k -P 7
-    class main
-    user root
-    disabled
-    oneshot
-
-service htc_ebdlogd_rel /system/bin/htc_ebdlogd -s -k
-    class main
-    user root
-    disabled
-    oneshot
-
-on property:ro.build.tags=test-keys
-    start htc_ebdlogd
-
-on property:ro.build.tags=release-keys
-    start htc_ebdlogd_rel
 
 on property:ro.emmc=1
     start rmt_storage

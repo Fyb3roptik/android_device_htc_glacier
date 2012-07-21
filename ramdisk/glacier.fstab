@@ -4,4 +4,3 @@
 /dev/block/mmcblk0p25	/system		ext4	ro,data=ordered,noauto_da_alloc				wait
 /dev/block/mmcblk0p26	/data		ext4	noatime,nosuid,nodev,data=ordered,noauto_da_alloc	wait
 /dev/block/mmcblk0p27	/cache		ext4	noatime,nosuid,nodev,data=ordered,noauto_da_alloc	wait
-/dev/block/mmcblk0p28	/devlog		ext4	noatime,nosuid,nodev,data=ordered,noauto_da_alloc	wait

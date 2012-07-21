@@ -52,7 +52,8 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     lights.glacier \
     sensors.glacier \
-    gps.glacier
+    gps.glacier \
+    camera.msm7x30
 
 # Keylayouts
 PRODUCT_COPY_FILES += \
