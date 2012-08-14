@@ -39,12 +39,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     dalvik.vm.lockprof.threshold=500 \
     dalvik.vm.dexopt-flags=m=y
 
-DEVICE_PACKAGE_OVERLAYS += device/htc/glacier/overlay
-
-PRODUCT_COPY_FILES += \
-    frameworks/native/data/etc/android.hardware.telephony.gsm.xml:system/etc/permissions/android.hardware.telephony.gsm.xml \
-    frameworks/native/data/etc/android.hardware.camera.front.xml:system/etc/permissions/android.hardware.camera.front.xml
-
 # gsm config xml file
 PRODUCT_COPY_FILES += \
     device/htc/glacier/voicemail-conf.xml:system/etc/voicemail-conf.xml
@@ -52,8 +46,7 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     lights.glacier \
     sensors.glacier \
-    gps.glacier \
-    camera.msm7x30
+    gps.glacier
 
 # Keylayouts
 PRODUCT_COPY_FILES += \
@@ -83,7 +76,7 @@ PRODUCT_COPY_FILES += \
 
 # media config xml file
 PRODUCT_COPY_FILES += \
-    device/htc/msm7x30-common/media_profiles.xml:system/etc/media_profiles.xml
+    device/htc/glacier/media_profiles.xml:system/etc/media_profiles.xml
 
 # stuff common to all HTC phones
 $(call inherit-product, device/htc/common/common.mk)

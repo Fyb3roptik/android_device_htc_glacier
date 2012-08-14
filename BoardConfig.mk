@@ -31,13 +31,21 @@ USE_CAMERA_STUB := true
 # inherit from the proprietary version
 -include vendor/htc/glacier/BoardConfigVendor.mk
 
+# Import headers from kernel
+TARGET_SPECIFIC_HEADER_PATH := kernel/htc/msm7x30/include
+
 TARGET_BOOTLOADER_BOARD_NAME := glacier
 
+# RIL
+BOARD_USE_NEW_LIBRIL_HTC := true
+
 # Extra Params
-BOARD_USES_HTC_CAMERA := true
-BOARD_HAVE_HTC_FFC := true
-BOARD_USE_REVERSE_FFC := true
+TARGET_BOOTANIMATION_PRELOAD := true
+TARGET_BOOTANIMATION_TEXTURE_CACHE := true
+BOARD_ADRENO_DECIDE_TEXTURE_TARGET := true
+TARGET_PROVIDES_LIBLIGHTS := true
 BOARD_USE_LEGACY_TRACKPAD := true
+BOARD_NEEDS_MEMORYHEAPPMEM := true
 
 BOARD_KERNEL_CMDLINE := no_console_suspend=1
 BOARD_KERNEL_BASE := 0x04000000
@@ -47,7 +55,7 @@ BOARD_VENDOR_QCOM_GPS_LOC_API_HARDWARE := glacier
 
 # Inline kernel building
 TARGET_KERNEL_SOURCE := kernel/htc/msm7x30
-TARGET_KERNEL_CONFIG := cyanogen_msm7230_defconfig
+TARGET_KERNEL_CONFIG := glacier_cm10_defconfig
 
 TARGET_USERIMAGES_USE_EXT4 := true
 BOARD_BOOTIMAGE_PARTITION_SIZE := 4194304
@@ -65,6 +73,6 @@ BOARD_USES_MMCUTILS := true
 BOARD_HAS_NO_MISC_PARTITION := true
 
 BOARD_VOLD_EMMC_SHARES_DEV_MAJOR := true
-TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/platform/usb_mass_storage/lun0/file
+TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/class/android_usb/android0/f_mass_storage/lun0/file
 
-COMMON_GLOBAL_CFLAGS += -DBINDER_COMPAT
+COMMON_GLOBAL_CFLAGS += -DQCOM_NO_SECURE_PLAYBACK -DICS_CAMERA_BLOB -DQCOM_ICS_COMPAT
