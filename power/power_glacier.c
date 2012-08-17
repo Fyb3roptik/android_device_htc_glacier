@@ -19,7 +19,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 
-#define LOG_TAG "VISION PowerHAL"
+#define LOG_TAG "GLACIER PowerHAL"
 #include <utils/Log.h>
 
 #include <hardware/hardware.h>
@@ -27,7 +27,7 @@
 
 #define BOOSTPULSE_PATH "/sys/devices/system/cpu/cpufreq/interactive/boostpulse"
 
-struct vision_power_module {
+struct glacier_power_module {
     struct power_module base;
     pthread_mutex_t lock;
     int boostpulse_fd;
@@ -55,7 +55,7 @@ static void sysfs_write(char *path, char *s)
     close(fd);
 }
 
-static void vision_power_init(struct power_module *module)
+static void glacier_power_init(struct power_module *module)
 {
     /*
      * cpufreq interactive governor: timer 20ms, min sample 60ms,
@@ -74,29 +74,29 @@ static void vision_power_init(struct power_module *module)
                 "100000");
 }
 
-static int boostpulse_open(struct vision_power_module *vision)
+static int boostpulse_open(struct glacier_power_module *glacier)
 {
     char buf[80];
 
-    pthread_mutex_lock(&vision->lock);
+    pthread_mutex_lock(&glacier->lock);
 
-    if (vision->boostpulse_fd < 0) {
-        vision->boostpulse_fd = open(BOOSTPULSE_PATH, O_WRONLY);
+    if (glacier->boostpulse_fd < 0) {
+        glacier->boostpulse_fd = open(BOOSTPULSE_PATH, O_WRONLY);
 
-        if (vision->boostpulse_fd < 0) {
-            if (!vision->boostpulse_warned) {
+        if (glacier->boostpulse_fd < 0) {
+            if (!glacier->boostpulse_warned) {
                 strerror_r(errno, buf, sizeof(buf));
                 ALOGE("Error opening %s: %s\n", BOOSTPULSE_PATH, buf);
-                vision->boostpulse_warned = 1;
+                glacier->boostpulse_warned = 1;
             }
         }
     }
 
-    pthread_mutex_unlock(&vision->lock);
-    return vision->boostpulse_fd;
+    pthread_mutex_unlock(&glacier->lock);
+    return glacier->boostpulse_fd;
 }
 
-static void vision_power_set_interactive(struct power_module *module, int on)
+static void glacier_power_set_interactive(struct power_module *module, int on)
 {
     /*
      * Lower maximum frequency when screen is off.  CPU 0 and 1 share a
@@ -107,17 +107,17 @@ static void vision_power_set_interactive(struct power_module *module, int on)
                 on ? "1200000" : "768000");
 }
 
-static void vision_power_hint(struct power_module *module, power_hint_t hint,
+static void glacier_power_hint(struct power_module *module, power_hint_t hint,
                             void *data)
 {
-    struct vision_power_module *vision = (struct vision_power_module *) module;
+    struct glacier_power_module *glacier = (struct glacier_power_module *) module;
     char buf[80];
     int len;
 
     switch (hint) {
     case POWER_HINT_INTERACTION:
-        if (boostpulse_open(vision) >= 0) {
-	    len = write(vision->boostpulse_fd, "1", 1);
+        if (boostpulse_open(glacier) >= 0) {
+	    len = write(glacier->boostpulse_fd, "1", 1);
 
 	    if (len < 0) {
 	        strerror_r(errno, buf, sizeof(buf));
@@ -138,21 +138,21 @@ static struct hw_module_methods_t power_module_methods = {
     .open = NULL,
 };
 
-struct vision_power_module HAL_MODULE_INFO_SYM = {
+struct glacier_power_module HAL_MODULE_INFO_SYM = {
     base: {
         common: {
             tag: HARDWARE_MODULE_TAG,
             module_api_version: POWER_MODULE_API_VERSION_0_2,
             hal_api_version: HARDWARE_HAL_API_VERSION,
             id: POWER_HARDWARE_MODULE_ID,
-            name: "VISION Power HAL",
+            name: "GLACIER Power HAL",
             author: "The Android Open Source Project",
             methods: &power_module_methods,
         },
 
-       init: vision_power_init,
-       setInteractive: vision_power_set_interactive,
-       powerHint: vision_power_hint,
+       init: glacier_power_init,
+       setInteractive: glacier_power_set_interactive,
+       powerHint: glacier_power_hint,
     },
 
     lock: PTHREAD_MUTEX_INITIALIZER,
