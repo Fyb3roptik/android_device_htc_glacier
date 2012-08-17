@@ -46,22 +46,23 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     lights.glacier \
     sensors.glacier \
-    gps.glacier
+    gps.glacier \
+    power.glacier
 
 # Keylayouts
 PRODUCT_COPY_FILES += \
-    device/htc/glacier/keylayout/h2w_headset.kl:system/usr/keylayout/h2w_headset.kl \
-    device/htc/glacier/keylayout/glacier-keypad.kl:system/usr/keylayout/glacier-keypad.kl
+    device/htc/glacier/prebuilt/keylayout/h2w_headset.kl:system/usr/keylayout/h2w_headset.kl \
+    device/htc/glacier/prebuilt/keylayout/glacier-keypad.kl:system/usr/keylayout/glacier-keypad.kl
 
 # IDC Files
 PRODUCT_COPY_FILES += \
-    device/htc/glacier/idc/atmel-touchscreen.idc:system/usr/idc/atmel-touchscreen.idc \
-    device/htc/glacier/idc/glacier-keypad.idc:system/usr/idc/glacier-keypad.idc \
-    device/htc/glacier/idc/curcial-oj.idc:system/usr/idc/curcial-oj.idc
+    device/htc/glacier/prebuilt/idc/atmel-touchscreen.idc:system/usr/idc/atmel-touchscreen.idc \
+    device/htc/glacier/prebuilt/idc/glacier-keypad.idc:system/usr/idc/glacier-keypad.idc \
+    device/htc/glacier/prebuilt/idc/curcial-oj.idc:system/usr/idc/curcial-oj.idc
 
 # Keychars
 PRODUCT_COPY_FILES += \
-    device/htc/glacier/keychars/glacier-keypad.kcm.bin:system/usr/keychars/glacier-keypad.kcm.bin
+    device/htc/glacier/prebuilt/keychars/glacier-keypad.kcm.bin:system/usr/keychars/glacier-keypad.kcm.bin
 
 # Firmware
 PRODUCT_COPY_FILES += \
@@ -76,7 +77,8 @@ PRODUCT_COPY_FILES += \
 
 # media config xml file
 PRODUCT_COPY_FILES += \
-    device/htc/glacier/media_profiles.xml:system/etc/media_profiles.xml
+    device/htc/glacier/media_profiles.xml:system/etc/media_profiles.xml \
+    device/htc/glacier/media_profiles.xml:system/etc/media_codecs.xml
 
 # stuff common to all HTC phones
 $(call inherit-product, device/htc/common/common.mk)
