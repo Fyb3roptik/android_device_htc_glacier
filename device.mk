@@ -16,10 +16,6 @@
 
 $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 
-# The gps config appropriate for this device
-PRODUCT_COPY_FILES += \
-    device/htc/glacier/gps.conf:system/etc/gps.conf
-
 ## (1) First, the most specific values, i.e. the aspects that are specific to GSM
 
 PRODUCT_COPY_FILES += \
@@ -32,6 +28,10 @@ $(call inherit-product-if-exists, vendor/htc/glacier/device-vendor.mk)
 
 ## (3)  Finally, the least specific parts, i.e. the non-GSM-specific aspects
 PRODUCT_PROPERTY_OVERRIDES += \
+    htc.audio.alt.enable=0 \
+    htc.audio.hac.enable=0 \
+    media.a1026.nsForVoiceRec=0 \
+    media.a1026.enableA1026=1 \
     ro.com.google.locationfeatures=1 \
     ro.com.google.networklocation=1 \
     ro.com.google.gmsversion=4.0_r1 \
@@ -39,15 +39,19 @@ PRODUCT_PROPERTY_OVERRIDES += \
     dalvik.vm.lockprof.threshold=500 \
     dalvik.vm.dexopt-flags=m=y
 
-# gsm config xml file
-PRODUCT_COPY_FILES += \
-    device/htc/glacier/voicemail-conf.xml:system/etc/voicemail-conf.xml
-
 PRODUCT_PACKAGES += \
     lights.glacier \
     sensors.glacier \
     gps.glacier \
-    power.glacier
+    # power.glacier
+
+# gsm config xml file
+PRODUCT_COPY_FILES += \
+    device/htc/glacier/voicemail-conf.xml:system/etc/voicemail-conf.xml
+
+# The gps config appropriate for this device
+PRODUCT_COPY_FILES += \
+    device/htc/glacier/gps.conf:system/etc/gps.conf
 
 # Keylayouts
 PRODUCT_COPY_FILES += \
@@ -77,20 +81,13 @@ PRODUCT_COPY_FILES += \
 
 # media config xml file
 PRODUCT_COPY_FILES += \
-    device/htc/glacier/media_profiles.xml:system/etc/media_profiles.xml \
-    device/htc/glacier/media_profiles.xml:system/etc/media_codecs.xml
+    device/htc/msm7x30-common/media_profiles.xml:system/etc/media_profiles.xml
 
 # stuff common to all HTC phones
 $(call inherit-product, device/htc/common/common.mk)
 
 # common msm7x30 configs
 $(call inherit-product, device/htc/msm7x30-common/msm7x30.mk)
-
-# media profiles and capabilities spec
-$(call inherit-product, device/htc/glacier/media_a1026.mk)
-
-# htc audio settings
-$(call inherit-product, device/htc/glacier/media_htcaudio.mk)
 
 # dalvik heap settings
 $(call inherit-product, frameworks/native/build/phone-hdpi-512-dalvik-heap.mk)

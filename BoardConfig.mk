@@ -31,9 +31,6 @@ USE_CAMERA_STUB := true
 # inherit from the proprietary version
 -include vendor/htc/glacier/BoardConfigVendor.mk
 
-# Import headers from kernel
-TARGET_SPECIFIC_HEADER_PATH := kernel/htc/msm7x30/include
-
 TARGET_BOOTLOADER_BOARD_NAME := glacier
 
 # RIL
@@ -47,7 +44,7 @@ TARGET_PROVIDES_LIBLIGHTS := true
 BOARD_USE_LEGACY_TRACKPAD := true
 BOARD_NEEDS_MEMORYHEAPPMEM := true
 
-BOARD_KERNEL_CMDLINE := no_console_suspend=1
+BOARD_KERNEL_CMDLINE := console=ttyHSL0 androidboot.hardware=glacier no_console_suspend=1
 BOARD_KERNEL_BASE := 0x04000000
 BOARD_KERNEL_PAGE_SIZE := 4096
 
