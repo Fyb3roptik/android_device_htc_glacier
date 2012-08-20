@@ -51,7 +51,6 @@ BOARD_KERNEL_PAGE_SIZE := 4096
 BOARD_VENDOR_QCOM_GPS_LOC_API_HARDWARE := glacier
 
 # Inline kernel building
-TARGET_KERNEL_SOURCE := kernel/htc/msm7x30
 TARGET_KERNEL_CONFIG := glacier_cm10_defconfig
 
 TARGET_USERIMAGES_USE_EXT4 := true
