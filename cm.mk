@@ -9,6 +9,9 @@ $(call inherit-product, vendor/cm/config/common_full_phone.mk)
 # Inherit device configuration
 $(call inherit-product, device/htc/glacier/full_glacier.mk)
 
+# Boot animation
+# TARGET_BOOTANIMATION_NAME := vertical-480
+
 # Device naming
 PRODUCT_DEVICE := glacier
 PRODUCT_NAME := cm_glacier

@@ -38,8 +38,8 @@ on property:init.svc.p2p_supplicant=stopped
 on boot
     chmod 0664 /sys/module/gpio_event/parameters/phone_call_status
     chown radio system /sys/module/gpio_event/parameters/phone_call_status
-    chmod 0640 /sys/camera_led_status/led_ril_status
-    chown radio system /sys/camera_led_status/led_ril_status
+    chown system system /sys/camera_led_status/led_ril_status
+
     chmod 0664 /sys/module/pm/parameters/idle_sleep_mode
 
     # for Flip to speaker
@@ -55,6 +55,14 @@ on boot
     chmod 0666 /sys/class/optical_sensors/proximity/ps_kadc
     chown system system /sys/class/optical_sensors/proximity/ps_led
     chown system system /sys/class/optical_sensors/proximity/ps_test_mode
+
+    # Compass and G-Sensor
+    chown compass system /dev/akm8975_aot
+    chown compass system /dev/akm8975_daemon
+    chown compass system /dev/bma150
+    chmod 0640 /dev/akm8975_aot
+    chmod 0640 /dev/akm8975_daemon
+    chmod 0640 /dev/bma150
 
     # bluetooth power up/down interface
     chown bluetooth bluetooth /sys/class/rfkill/rfkill0/type

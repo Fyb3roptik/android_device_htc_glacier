@@ -28,22 +28,24 @@ $(call inherit-product-if-exists, vendor/htc/glacier/device-vendor.mk)
 
 ## (3)  Finally, the least specific parts, i.e. the non-GSM-specific aspects
 PRODUCT_PROPERTY_OVERRIDES += \
-    htc.audio.alt.enable=0 \
-    htc.audio.hac.enable=0 \
-    media.a1026.nsForVoiceRec=0 \
-    media.a1026.enableA1026=1 \
     ro.com.google.locationfeatures=1 \
     ro.com.google.networklocation=1 \
     ro.com.google.gmsversion=4.0_r1 \
     ro.setupwizard.enable_bypass=1 \
-    dalvik.vm.lockprof.threshold=500 \
-    dalvik.vm.dexopt-flags=m=y
+    debug.camcorder.disablemeta=1
+
+# HTC Audio related
+PRODUCT_PROPERTY_OVERRIDES += \
+    htc.audio.alt.enable=0 \
+    htc.audio.hac.enable=0 \
+    media.a1026.nsForVoiceRec=0 \
+    media.a1026.enableA1026=1 \
 
 PRODUCT_PACKAGES += \
     lights.glacier \
     sensors.glacier \
     gps.glacier \
-    # power.glacier
+    power.glacier
 
 # gsm config xml file
 PRODUCT_COPY_FILES += \
@@ -52,6 +54,10 @@ PRODUCT_COPY_FILES += \
 # The gps config appropriate for this device
 PRODUCT_COPY_FILES += \
     device/htc/glacier/gps.conf:system/etc/gps.conf
+
+# camera configuration file
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/prebuilt/nvcamera.conf:system/etc/nvcamera.conf
 
 # Keylayouts
 PRODUCT_COPY_FILES += \
@@ -78,10 +84,6 @@ PRODUCT_COPY_FILES += \
 # Vold
 PRODUCT_COPY_FILES += \
     device/htc/glacier/vold.fstab:system/etc/vold.fstab
-
-# media config xml file
-PRODUCT_COPY_FILES += \
-    device/htc/msm7x30-common/media_profiles.xml:system/etc/media_profiles.xml
 
 # stuff common to all HTC phones
 $(call inherit-product, device/htc/common/common.mk)
