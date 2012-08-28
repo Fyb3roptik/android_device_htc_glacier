@@ -1,4 +1,4 @@
-import init.htc7x30.usb.rc
+import init.glacier.usb.rc
 
 on early-init
 
