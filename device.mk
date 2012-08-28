@@ -15,11 +15,13 @@
 #
 
 $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 
 ## (1) First, the most specific values, i.e. the aspects that are specific to GSM
 
 PRODUCT_COPY_FILES += \
     device/htc/glacier/ramdisk/init.glacier.rc:root/init.glacier.rc \
+    device/htc/glacier/ramdisk/init.glacier.usb.rc:root/init.glacier.usb.rc \
     device/htc/glacier/ramdisk/ueventd.glacier.rc:root/ueventd.glacier.rc \
     device/htc/glacier/ramdisk/glacier.fstab:root/glacier.fstab
 
@@ -44,20 +46,19 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PACKAGES += \
     lights.glacier \
     sensors.glacier \
-    gps.glacier \
-    power.glacier
+    gps.glacier
+
+# Wifi Calling
+PRODUCT_PACKAGES += \
+    GanOptimizer
+
+# Permissions
+PRODUCT_COPY_FILES += \
+    frameworks/native/data/etc/android.hardware.telephony.gsm.xml:system/etc/permissions/android.hardware.telephony.gsm.xml
 
 # gsm config xml file
 PRODUCT_COPY_FILES += \
     device/htc/glacier/voicemail-conf.xml:system/etc/voicemail-conf.xml
-
-# The gps config appropriate for this device
-PRODUCT_COPY_FILES += \
-    device/htc/glacier/gps.conf:system/etc/gps.conf
-
-# camera configuration file
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/prebuilt/nvcamera.conf:system/etc/nvcamera.conf
 
 # Keylayouts
 PRODUCT_COPY_FILES += \
@@ -84,6 +85,12 @@ PRODUCT_COPY_FILES += \
 # Vold
 PRODUCT_COPY_FILES += \
     device/htc/glacier/vold.fstab:system/etc/vold.fstab
+
+# Fix bcm4329 firmware
+$(call inherit-product, hardware/broadcom/wlan/bcmdhd/firmware/bcm4329/device-bcm.mk)
+
+# GPS
+$(call inherit-product, device/common/gps/gps_us_supl.mk)
 
 # stuff common to all HTC phones
 $(call inherit-product, device/htc/common/common.mk)
