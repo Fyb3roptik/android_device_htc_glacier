@@ -34,9 +34,7 @@ USE_CAMERA_STUB := true
 TARGET_BOOTLOADER_BOARD_NAME := glacier
 
 # Extra Params
-BOARD_USES_HTC_CAMERA := true
-BOARD_HAVE_HTC_FFC := true
-BOARD_USE_REVERSE_FFC := true
+BOARD_NEEDS_MEMORYHEAPPMEM := true
 BOARD_USE_LEGACY_TRACKPAD := true
 
 BOARD_KERNEL_CMDLINE := no_console_suspend=1
@@ -46,8 +44,8 @@ BOARD_KERNEL_PAGE_SIZE := 4096
 BOARD_VENDOR_QCOM_GPS_LOC_API_HARDWARE := glacier
 
 # Inline kernel building
-TARGET_KERNEL_SOURCE := kernel/htc-kernel-msm7x30
-TARGET_KERNEL_CONFIG := cyanogen_msm7230_defconfig
+TARGET_KERNEL_SOURCE := kernel/htc/msm7x30
+TARGET_KERNEL_CONFIG := glacier_cm10_defconfig
 
 TARGET_USERIMAGES_USE_EXT4 := true
 BOARD_BOOTIMAGE_PARTITION_SIZE := 4194304
@@ -64,7 +62,7 @@ BOARD_SDEXT_DEVICE := /dev/block/mmcblk1p2
 BOARD_USES_MMCUTILS := true
 BOARD_HAS_NO_MISC_PARTITION := true
 
+# USB Storage
+BOARD_VOLD_MAX_PARTITIONS := 36
 BOARD_VOLD_EMMC_SHARES_DEV_MAJOR := true
-TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/platform/usb_mass_storage/lun0/file
-
-COMMON_GLOBAL_CFLAGS += -DBINDER_COMPAT
+TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/class/android_usb/android0/f_mass_storage/lun0/file
