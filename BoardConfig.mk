@@ -28,17 +28,20 @@ USE_CAMERA_STUB := true
 # inherit from common msm7x30
 -include device/htc/msm7x30-common/BoardConfigCommon.mk
 
-# inherit from the proprietary version
--include vendor/htc/glacier/BoardConfigVendor.mk
-
 TARGET_BOOTLOADER_BOARD_NAME := glacier
+
+# Wifi
+WIFI_DRIVER_MODULE_NAME := bcmdhd
+WIFI_DRIVER_MODULE_PATH := "/system/lib/modules/bcmdhd.ko"
 
 # Optical Joystick Params
 BOARD_USE_LEGACY_TRACKPAD := true
+BOARD_HAVE_HTC_FFC := true
+BOARD_USE_REVERSE_FFC := true
 
 # Kernel Related
 TARGET_KERNEL_CONFIG := glacier_cm10_defconfig
-BOARD_KERNEL_CMDLINE := no_console_suspend=1
+BOARD_KERNEL_CMDLINE := console=ttyHSL0 androidboot.hardware=glacier no_console_suspend=1
 BOARD_KERNEL_BASE := 0x04000000
 BOARD_KERNEL_PAGE_SIZE := 4096
 
@@ -57,7 +60,3 @@ BOARD_HAS_NO_MISC_PARTITION := true
 # USB Storage
 BOARD_VOLD_EMMC_SHARES_DEV_MAJOR := true
 TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/class/android_usb/android0/f_mass_storage/lun0/file
-
-# Wifi
-WIFI_DRIVER_MODULE_NAME := bcmdhd
-WIFI_DRIVER_MODULE_PATH := "/system/lib/modules/bcmdhd.ko"

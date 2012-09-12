@@ -31,6 +31,9 @@ $(call inherit-product-if-exists, vendor/htc/glacier/device-vendor.mk)
 
 ## (3)  Finally, the least specific parts, i.e. the non-GSM-specific aspects
 PRODUCT_PROPERTY_OVERRIDES += \
+    ro.com.google.clientidbase=android-tmobile-us \
+    ro.com.google.clientidbase.vs=android-hms-tmobile-us \
+    ro.com.google.clientidbase.ms=android-hms-tmobile-us \
     ro.com.google.locationfeatures=1 \
     ro.com.google.networklocation=1 \
     ro.com.google.gmsversion=4.0_r1 \
@@ -75,17 +78,11 @@ PRODUCT_COPY_FILES += \
     device/htc/glacier/firmware/default.acdb:system/etc/firmware/default.acdb \
     device/htc/glacier/firmware/default_org.acdb:system/etc/firmware/default_org.acdb \
     device/htc/glacier/firmware/default_org_WA.acdb:system/etc/firmware/default_org_WA.acdb \
-    device/htc/glacier/firmware/A1026_CFG.csv:system/etc/A1026_CFG.csv \
-    device/htc/glacier/firmware/AdieHWCodec.csv:system/etc/AdieHWCodec.csv \
-    device/htc/glacier/firmware/AdieHWCodec_WA.csv:system/etc/AdieHWCodec_WA.csv
+    device/htc/glacier/firmware/Glacier_SPK.acdb:system/etc/firmware/Glacier_SPK.acdb
 
 # Vold
 PRODUCT_COPY_FILES += \
     device/htc/glacier/vold.fstab:system/etc/vold.fstab
-
-# media config xml file
-PRODUCT_COPY_FILES += \
-    device/htc/msm7x30-common/media_profiles.xml:system/etc/media_profiles.xml
 
 # High-density art, but English locale
 PRODUCT_LOCALES += en
