@@ -36,7 +36,7 @@ adb pull /system/lib/libmmipl.so ../../../vendor/$MANUFACTURER/$DEVICE/proprieta
 adb pull /system/lib/libmmjpeg.so ../../../vendor/$MANUFACTURER/$DEVICE/proprietary
 adb pull /system/lib/liboemcamera.so ../../../vendor/$MANUFACTURER/$DEVICE/proprietary
 adb pull /system/lib/libv8.so ../../../vendor/$MANUFACTURER/$DEVICE/proprietary
-adb pull /system/etc/vpimg ../../../vendor/$MANUFACTURER/$DEVICE/proprietary
+#adb pull /system/etc/vpimg ../../../vendor/$MANUFACTURER/$DEVICE/proprietary
 
 (cat << EOF) | sed s/__DEVICE__/$DEVICE/g | sed s/__MANUFACTURER__/$MANUFACTURER/g > ../../../vendor/$MANUFACTURER/$DEVICE/device-vendor-blobs.mk
 # Copyright (C) 2012 The Android Open Source Project
@@ -79,8 +79,8 @@ PRODUCT_COPY_FILES += \\
     vendor/__MANUFACTURER__/__DEVICE__/proprietary/libv8.so:system/lib/libv8.so \\
     vendor/__MANUFACTURER__/__DEVICE__/proprietary/logcat2:/system/bin/logcat2 \\
     vendor/__MANUFACTURER__/__DEVICE__/proprietary/lsc_camera:/system/bin/lsc_camera \\
-    vendor/__MANUFACTURER__/__DEVICE__/proprietary/rmt_storage:/system/bin/rmt_storage \\
-    vendor/__MANUFACTURER__/__DEVICE__/proprietary/vpimg:/system/etc/vpimg
+    vendor/__MANUFACTURER__/__DEVICE__/proprietary/rmt_storage:/system/bin/rmt_storage
+    #vendor/__MANUFACTURER__/__DEVICE__/proprietary/vpimg:/system/etc/vpimg
 
 # Inherit from QCOM vendor tree
 \$(call inherit-product-if-exists, vendor/qcom/qcom-vendor-blobs.mk)
